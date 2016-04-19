@@ -1,0 +1,7 @@
+package rankit;
+
+import ro.pippo.core.Application;
+
+public class RankitApp extends Application {
+
+}
