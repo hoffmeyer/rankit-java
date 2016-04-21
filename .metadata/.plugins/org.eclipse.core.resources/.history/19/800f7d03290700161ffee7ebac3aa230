@@ -1,0 +1,26 @@
+package rankit;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ro.pippo.core.Application;
+
+public class RankitApp extends Application {
+
+	@Override
+	protected void onInit() {
+
+		GET("/list", (routeContext) -> routeContext.json().send( getList() ) );
+		POST("/player", (routeContext) -> routeContext.send("hello") );
+
+	}
+	
+	private List<Player> getList(){
+		ArrayList<Player> list = new ArrayList<>();
+		list.add(new Player(1, "The Hoff", 1000));
+		list.add(new Player(2, "Testersen", 1000));
+		list.add(new Player(3, "Heidi", 1000));
+		list.add(new Player(4, "Hunden", 1000));
+		return list;
+	}
+}
