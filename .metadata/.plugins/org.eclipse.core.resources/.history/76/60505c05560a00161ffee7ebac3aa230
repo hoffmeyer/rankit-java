@@ -1,9 +1,11 @@
 package rankit;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import rankit.model.Player;
 import ro.pippo.core.Application;
 
@@ -34,21 +36,11 @@ public class RankitApp extends Application {
 		
 		POST("/match", (routeContext) ->{
 			Match match = routeContext.createEntityFromBody(Match.class);
-			if( match.team1.score > match.team2.score) {
-				addPoints(match.team1.players, 50);
-				addPoints(match.team2.players, -50);
-			}
+			
 		});
 
 	}
 	
-	private void addPoints(int[] playerIds, int points) {
-		for( int id : playerIds) {
-			Player player = players.get(id);
-			player.setPoints(player.getPoints() + points);
-		}
-	}
-
 	public static class NewPlayer {
 		public String name;
 	}
