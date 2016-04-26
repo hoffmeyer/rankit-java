@@ -1,0 +1,6 @@
+version: '1'
+services:
+  make:
+    build: .
+    volumes:
+    - .:/usr/src/mymaven
