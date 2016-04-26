@@ -1,9 +1,0 @@
-package rankit;
-
-import ro.pippo.core.Application;
-
-public class RankitApp extends Application {
-
-	// send 'Hello World' as response
-    GET("/", (routeContext) -> routeContext.send("Hello World"));
-}
