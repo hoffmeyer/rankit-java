@@ -8,12 +8,6 @@
 	<dependencies>
 		<dependency>
 			<groupId>ro.pippo</groupId>
-			<artifactId>pippo-jackson</artifactId>
-			<version>0.8.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>ro.pippo</groupId>
 			<artifactId>pippo-core</artifactId>
 			<version>0.8.0</version>
 		</dependency>
@@ -25,11 +19,16 @@
 		</dependency>
 
 		<dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.21</version>
-        </dependency>
+			<groupId>ro.pippo</groupId>
+			<artifactId>pippo-freemarker</artifactId>
+			<version>0.8.0</version>
+		</dependency>
 
+		<dependency>
+			<groupId>ro.pippo</groupId>
+			<artifactId>pippo-jackson</artifactId>
+			<version>0.8.0</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

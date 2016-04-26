@@ -28,9 +28,8 @@ public class RankitApp extends Application {
 				int id = players.size() + 1;
 				players.put(id, new Player(id, newPlayer.name, 1000));
 				routeContext.send("OK");
-			} else {
-				routeContext.status(501).send("Attribute name is undefined");
 			}
+			routeContext.status(501).send("Attribute name is undefined");
 		} );
 		
 		POST("/match", (routeContext) ->{
