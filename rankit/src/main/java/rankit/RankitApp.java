@@ -1,15 +1,23 @@
 package rankit;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import rankit.model.Player;
 import ro.pippo.core.Application;
 
 public class RankitApp extends Application {
 	
 	private Map<Integer, Player> players = new HashMap<>();
+	private Connection _db;
+	
+	public RankitApp( Connection db ) {
+		_db = db;
+	}
 
 	@Override
 	protected void onInit() {
@@ -34,19 +42,27 @@ public class RankitApp extends Application {
 		} );
 		
 		POST("/match", (routeContext) ->{
-			Match match = routeContext.createEntityFromBody(Match.class);
+			NewMatch match = routeContext.createEntityFromBody(NewMatch.class);
 			if( match.team1.score > match.team2.score) {
 				addPoints(match.team1.players, 50);
 				addPoints(match.team2.players, -50);
 			}
 		});
-
+	}
+	
+	@Override
+	protected void onDestroy() {
+		try {
+			_db.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void addPoints(int[] playerIds, int points) {
 		for( int id : playerIds) {
 			Player player = players.get(id);
-			player.setPoints(player.getPoints() + points);
+			player.addPoints(points);
 		}
 	}
 
@@ -59,7 +75,7 @@ public class RankitApp extends Application {
 		public int score;
 	}
 	
-	public static class Match {
+	public static class NewMatch {
 		public Team team1;
 		public Team team2;
 	}
