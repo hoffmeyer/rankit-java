@@ -22,7 +22,7 @@ public class StartApp {
 		}
 
 		String URL = "jdbc:postgresql://localhost:5432/postgres";
-		String USER = "postgrest";
+		String USER = "postgres";
 		String PASS = "postgres";
 		Connection db;
 
