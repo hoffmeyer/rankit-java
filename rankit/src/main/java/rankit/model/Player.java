@@ -12,6 +12,8 @@ public class Player {
 	private int currentWinsInRow = 0;
 	private int currentLossesInRow = 0;
 	
+	public Player(){ }
+
 	public Player( int id, String name, int points ){
 		this.id = id;
 		this.name = name;
