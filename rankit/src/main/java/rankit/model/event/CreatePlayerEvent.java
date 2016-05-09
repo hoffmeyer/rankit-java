@@ -5,6 +5,8 @@ import rankit.model.Player;
 public class CreatePlayerEvent extends Event {
 	private Player player;
 
+	public CreatePlayerEvent() {}
+
 	public CreatePlayerEvent(Player newPlayer) {
 		player = newPlayer;
 	}
@@ -15,6 +17,11 @@ public class CreatePlayerEvent extends Event {
 
 	public void setPlayer(Player player) {
 		this.player = player;
+	}
+
+	@Override
+	protected String defineType() {
+		return this.getClass().getName();
 	}
 
 }

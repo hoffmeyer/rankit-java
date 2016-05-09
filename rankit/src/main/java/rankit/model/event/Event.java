@@ -2,13 +2,17 @@ package rankit.model.event;
 
 import java.util.Date;
 
-public class Event {
+abstract public class Event {
 	private static int count = 0;
 	private Date created = new Date();
 	private int id;
+	private final String type; 
 	
-	public Event() {
+	abstract protected String defineType();
+	
+	protected Event() {
 		id = ++count;
+		type = defineType();
 	}
 
 	public int getId() {
@@ -25,5 +29,9 @@ public class Event {
 
 	public void setCreated(Date created) {
 		this.created = created;
+	}
+
+	public String getType() {
+		return type;
 	}
 }

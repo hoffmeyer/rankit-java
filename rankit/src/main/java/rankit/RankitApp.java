@@ -1,19 +1,21 @@
 package rankit;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import rankit.model.Match;
 import rankit.model.Player;
 import rankit.model.event.CreatePlayerEvent;
+import rankit.model.event.Event;
+import rankit.model.event.RegisterMatchEvent;
 import ro.pippo.core.Application;
 
 public class RankitApp extends Application {
 
+	private Logger logger = Logger.getLogger("RankitApp");
 	private Map<Integer, Player> players = new HashMap<>();
 	private DatabaseUtil _db;
 
@@ -35,11 +37,8 @@ public class RankitApp extends Application {
 		POST("/player", (routeContext) -> {
 			Player newPlayer = routeContext.createEntityFromBody(Player.class);
 			if (newPlayer != null) {
-				int id = players.size() + 1;
-				newPlayer.setId(id);
-				newPlayer.addPoints(1000);
-				_db.saveEvent( new CreatePlayerEvent(newPlayer));
-				players.put(newPlayer.getId(), newPlayer);
+				addNewPlayer(newPlayer);
+				_db.saveEvent(new CreatePlayerEvent(newPlayer));
 				routeContext.send("OK");
 			} else {
 				routeContext.status(501).send("Attribute name is undefined");
@@ -48,16 +47,31 @@ public class RankitApp extends Application {
 
 		POST("/match", (routeContext) -> {
 			Match match = routeContext.createEntityFromBody(Match.class);
-			if (match.team1.score > match.team2.score) {
-				addPoints(match.team1.players, 50);
-				addPoints(match.team2.players, -50);
+			if(match != null){
+				registerMatch(match);
 			}
+			_db.saveEvent(new RegisterMatchEvent(match));
 		});
 	}
 
 	@Override
 	protected void onDestroy() {
 		_db.close();
+	}
+
+	private void addNewPlayer(Player newPlayer) {
+		int id = players.size() + 1;
+		newPlayer.setId(id);
+		newPlayer.addPoints(1000);
+		players.put(newPlayer.getId(), newPlayer);
+	}
+
+	private void registerMatch(Match match) {
+		if (match.team1.score > match.team2.score) {
+			addPoints(match.team1.players, 50);
+			addPoints(match.team2.players, -50);
+		}
+
 	}
 
 	private void addPoints(int[] playerIds, int points) {
@@ -68,8 +82,17 @@ public class RankitApp extends Application {
 	}
 
 	private void initList() {
-		players.put(1, new Player(1, "The Hoff", 1000));
-		players.put(2, new Player(2, "Heidi", 900));
-		players.put(3, new Player(3, "Hunden", 1200));
+		applyEvents(_db.getEvents());
+	}
+
+	private void applyEvents(List<Event> list) {
+		for (Event event : list) {
+			if (event instanceof CreatePlayerEvent) {
+				addNewPlayer(((CreatePlayerEvent) event).getPlayer());
+			} else if (event instanceof RegisterMatchEvent) {
+				registerMatch(((RegisterMatchEvent) event).getMatch());
+			}
+			logger.severe("Unhanled event i applyEvents " + event.getClass().getName());
+		}
 	}
 }
