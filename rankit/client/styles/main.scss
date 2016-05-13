@@ -1,0 +1,100 @@
+$icon-font-path: "/bower_components/bootstrap-sass-official/assets/fonts/";
+
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap";
+
+.nav {
+    margin-bottom: 15px;
+}
+.container {
+    max-width: 730px;
+}
+
+// typeahead
+.typeahead_list {
+    position: absolute;
+    z-index: 2;
+    width: 95%;
+}
+.typeahead_list_item {
+    padding: 5px 10px;
+    background-color: white;
+    border: 1px solid grey;
+}
+.typeahead_list_item-selected, .typeahead_list_item:hover {
+    background-color: #337ab7;
+    color: #fff;
+}
+
+.typeahead_validmarker {
+    position: absolute;
+    top: 7px;
+    right: 25px;
+    color: green;
+    font-weight: bold;
+}
+
+    .won1 {
+        background-color: rgba(50, 255, 50, 0.1);
+    }
+    .won2 {
+        background-color: rgba(50, 255, 50, 0.15);
+    }
+    .won3 {
+        background-color: rgba(50, 255, 50, 0.2);
+    }
+    .won4 {
+        background-color: rgba(50, 255, 50, 0.25);
+    }
+    .won5 {
+        background-color: rgba(50, 255, 50, 0.3);
+    }
+    .won6 {
+       background-color: rgba(50, 255, 50, 0.35);
+    }
+    .won7 {
+        background-color: rgba(50, 255, 50, 0.4);
+    }
+    .won8 {
+        background-color: rgba(50, 255, 50, 0.45);
+    }
+    .won9 {
+        background-color: rgba(50, 255, 50, 0.5);
+    }
+    .won10 {
+        background-color: rgba(50, 255, 50, 0.55);
+    }
+
+    .lost1{
+        background-color: rgba(255, 50, 50, 0.1);
+    }
+    .lost2{
+        background-color: rgba(255, 50, 50, 0.15);
+    }
+    .lost3{
+        background-color: rgba(255, 50, 50, 0.2);
+    }
+    .lost4{
+        background-color: rgba(255, 50, 50, 0.25);
+    }
+    .lost5{
+        background-color: rgba(255, 50, 50, 0.3);
+    }
+    .lost6{
+        background-color: rgba(255, 50, 50, 0.35);
+    }
+    .lost7{
+        background-color: rgba(255, 50, 50, 0.4);
+    }
+    .lost8{
+        background-color: rgba(255, 50, 50, 0.4);
+    }
+    .lost9{
+        background-color: rgba(255, 50, 50, 0.4);
+    }
+    .lost10{
+        background-color: rgba(255, 50, 50, 0.4);
+    }
+
+.notPlayed {
+    opacity: 0.2;
+}

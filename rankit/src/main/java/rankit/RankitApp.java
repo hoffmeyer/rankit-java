@@ -4,18 +4,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import rankit.logic.Scoring;
 import rankit.model.Match;
 import rankit.model.Player;
 import rankit.model.event.CreatePlayerEvent;
 import rankit.model.event.Event;
 import rankit.model.event.RegisterMatchEvent;
 import ro.pippo.core.Application;
+import ro.pippo.core.RedirectHandler;
 
 public class RankitApp extends Application {
 
-	private Logger logger = Logger.getLogger("RankitApp");
+	private Logger logger = LoggerFactory.getLogger(RankitApp.class);
 	private Map<Integer, Player> players = new HashMap<>();
 	private DatabaseUtil _db;
 
@@ -27,14 +31,29 @@ public class RankitApp extends Application {
 	protected void onInit() {
 
 		initList();
+		
 
-		GET("/list", (routeContext) -> {
+
+        /*
+         *  audit filter
+         */
+        ALL("/.*", routeContext -> {
+		    logger.info("Request for {} '{}'", routeContext.getRequestMethod(), routeContext.getRequestUri());
+		    routeContext.next();
+		});
+        
+        /*
+         * root redirect
+         */
+        GET("/", new RedirectHandler("/public/index.html"));
+
+		GET("/api/list", (routeContext) -> {
 			List<Player> playerList = new ArrayList<Player>(players.values());
 			playerList.sort((p1, p2) -> p2.getPoints() - p1.getPoints());
 			routeContext.json().send(playerList);
 		});
 
-		POST("/player", (routeContext) -> {
+		POST("/api/player", (routeContext) -> {
 			Player newPlayer = routeContext.createEntityFromBody(Player.class);
 			if (newPlayer != null) {
 				addNewPlayer(newPlayer);
@@ -45,7 +64,7 @@ public class RankitApp extends Application {
 			}
 		});
 
-		POST("/match", (routeContext) -> {
+		POST("/api/match", (routeContext) -> {
 			Match match = routeContext.createEntityFromBody(Match.class);
 			if(match != null){
 				registerMatch(match);
@@ -67,18 +86,7 @@ public class RankitApp extends Application {
 	}
 
 	private void registerMatch(Match match) {
-		if (match.team1.score > match.team2.score) {
-			addPoints(match.team1.players, 50);
-			addPoints(match.team2.players, -50);
-		}
-
-	}
-
-	private void addPoints(int[] playerIds, int points) {
-		for (int id : playerIds) {
-			Player player = players.get(id);
-			player.addPoints(points);
-		}
+		Scoring.score(match, players);
 	}
 
 	private void initList() {
@@ -91,8 +99,9 @@ public class RankitApp extends Application {
 				addNewPlayer(((CreatePlayerEvent) event).getPlayer());
 			} else if (event instanceof RegisterMatchEvent) {
 				registerMatch(((RegisterMatchEvent) event).getMatch());
+			} else {
+				logger.error("Unhanled event i applyEvents " + event.getClass().getName());
 			}
-			logger.severe("Unhanled event i applyEvents " + event.getClass().getName());
 		}
 	}
 }

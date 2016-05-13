@@ -29,6 +29,7 @@ public class StartApp {
 		try {
 			db = DriverManager.getConnection(URL, USER, PASS);
 			Pippo pippo = new Pippo( new RankitApp (new DatabaseUtil(db)));
+			pippo.getApplication().addPublicResourceRoute();
 			pippo.start();
 		} catch (SQLException e) {
 			logger.log(Level.SEVERE, "Database connection failed", e);

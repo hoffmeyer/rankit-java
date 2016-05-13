@@ -41,7 +41,7 @@ public class Player {
 	public int getPoints() {
 		return points;
 	}
-	public void addPoints(int points) {
+	public void addPoints(double points) {
 		this.points += points;
 	}
 	public int getLostGames() {

@@ -1,0 +1,12 @@
+js:
+    build: .
+    dockerfile: Dockerfile-dev
+    volumes:
+        - ./client:/src/app
+        - ./src/main/resources/public:/src/dist
+db:
+    image: postgres:9.4
+    ports:
+        - "5432:5432"
+    environment:
+        POSTGRES_PASSWORD: postgres

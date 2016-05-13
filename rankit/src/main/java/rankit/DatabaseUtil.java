@@ -70,14 +70,14 @@ public class DatabaseUtil {
 	}
 
 	public List<Event> getEvents() {
-		System.out.println("Loading events....");
+		logger.info("Loading events....");
 		ArrayList<Event> events = new ArrayList<>();
 		try {
 			Statement s = _db.createStatement();
 			String sql = "SELECT * FROM events";
 			ResultSet rs = s.executeQuery(sql);
+			int numEvents = 0;
 			while (rs.next()) {
-				System.out.println("found something");
 				String data = rs.getString("data");
 				Event event = null;
 				if(data.contains(CreatePlayerEvent.class.getName())){
@@ -89,8 +89,10 @@ public class DatabaseUtil {
 				}
 				if(event != null){
 					events.add(event);
+					numEvents++;
 				}
 			}
+			logger.info("Loaded " + numEvents + " events from db");
 		} catch (SQLException e) {
 			logger.severe("Failed to get event list from db");
 			e.printStackTrace();
