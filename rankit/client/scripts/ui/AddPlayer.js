@@ -32,7 +32,7 @@ var AddPlayer = React.createClass({
         e.preventDefault();
 
         var req = new XMLHttpRequest();
-        req.open('POST', '/player', true);
+        req.open('POST', '/api/player', true);
         req.setRequestHeader('Content-Type', 'application/json');
         req.onreadystatechange = function(){
             if( req.readyState === 4 && req.status === 200){

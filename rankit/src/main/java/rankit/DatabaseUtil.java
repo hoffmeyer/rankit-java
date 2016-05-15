@@ -35,7 +35,7 @@ public class DatabaseUtil {
 		logger.info("Initializing database");
 		try {
 			Statement s = _db.createStatement();
-			String sql = "CREATE TABLE IF NOT EXISTS events (" + "	id integer NOT NULL," + "	data jsonb" + ");";
+			String sql = "CREATE TABLE IF NOT EXISTS events (" + "	id integer PRIMARY KEY NOT NULL," + "	data jsonb" + ");";
 			s.executeUpdate(sql);
 			s.close();
 

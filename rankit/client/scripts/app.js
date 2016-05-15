@@ -1,8 +1,9 @@
 'use strict';
 var React = window.React = require('react'),
+    ReactDOM = require('react-dom'),
     Navigation = require('./ui/Navigation'),
     Content = require('./ui/Content'),
-    feed = require('./helpers/feed'),
+    //feed = require('./helpers/feed'),
     mountNode = document.getElementById('app');
 
 var RankyApp = React.createClass({
@@ -19,14 +20,14 @@ var RankyApp = React.createClass({
   },
   getInitialState: function() {
     var _this = this;
-    feed.playersUpdated(function(players){
-      players.map(function(player){
-        _this.updateWithPlayer(player);
-      });
-    }.bind(this));
-    feed.playerCreated(function(player){
-      this.updateWithPlayer(player);
-    }.bind(this));
+   // feed.playersUpdated(function(players){
+   //   players.map(function(player){
+   //     _this.updateWithPlayer(player);
+   //   });
+   // }.bind(this));
+   // feed.playerCreated(function(player){
+   //   this.updateWithPlayer(player);
+   // }.bind(this));
     return {players: [], currentPage: 'list'};
   },
   componentDidMount: function() {
@@ -40,7 +41,7 @@ var RankyApp = React.createClass({
               }
           }
       }.bind(this);
-      req.open('GET', '/list', true );
+      req.open('GET', '/api/list', true );
       req.send();
   },
   pages: function(){
@@ -72,5 +73,4 @@ var RankyApp = React.createClass({
   }
 });
 
-
-React.render(<RankyApp source='' />, mountNode);
+ReactDOM.render(<RankyApp source='' />, mountNode);

@@ -108,7 +108,7 @@ var AddMatch = React.createClass({
         }
 
         var req = new XMLHttpRequest();
-        req.open('POST', '/match', true);
+        req.open('POST', '/api/match', true);
         req.setRequestHeader('Content-Type', 'application/json');
         req.onreadystatechange = function(){
             if( req.readyState === 4 && req.status === 200){

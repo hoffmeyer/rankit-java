@@ -1,5 +1,6 @@
 package rankit;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ public class RankitApp extends Application {
 
 	private Logger logger = LoggerFactory.getLogger(RankitApp.class);
 	private Map<Integer, Player> players = new HashMap<>();
+	private List<Match> matches = new ArrayList<>();
 	private DatabaseUtil _db;
 
 	public RankitApp(DatabaseUtil db) {
@@ -31,8 +33,6 @@ public class RankitApp extends Application {
 	protected void onInit() {
 
 		initList();
-		
-
 
         /*
          *  audit filter
@@ -63,13 +63,21 @@ public class RankitApp extends Application {
 				routeContext.status(501).send("Attribute name is undefined");
 			}
 		});
+		
+		GET("/api/match", (routeContext) -> {
+			routeContext.json().send(matches);
+		});
 
 		POST("/api/match", (routeContext) -> {
 			Match match = routeContext.createEntityFromBody(Match.class);
 			if(match != null){
 				registerMatch(match);
+				_db.saveEvent(new RegisterMatchEvent(match));
+				routeContext.send("OK");
+			} else {
+				routeContext.status(501).send("Attribute match is incorrect");
 			}
-			_db.saveEvent(new RegisterMatchEvent(match));
+
 		});
 	}
 
@@ -87,6 +95,7 @@ public class RankitApp extends Application {
 
 	private void registerMatch(Match match) {
 		Scoring.score(match, players);
+		matches.add(match);
 	}
 
 	private void initList() {

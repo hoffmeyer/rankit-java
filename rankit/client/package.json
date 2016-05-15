@@ -4,7 +4,8 @@
   "version": "0.0.5",
   "private": true,
   "dependencies": {
-    "react": "latest"
+    "react": "latest",
+    "react-dom": "latest"
   },
   "devDependencies": {
     "browserify-shim": "^3.8.0",

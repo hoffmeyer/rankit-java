@@ -7,7 +7,7 @@ var Match = React.createClass({
         var self = this;
         var playersToString = function(players){
             return players.map(function(elem){
-                return self.props.playersToString[elem.id];
+                return self.props.playersToString[elem];
             }).join( ' & ');
         };
         var options = {
@@ -26,7 +26,7 @@ var Match = React.createClass({
                         {this.props.match.team1.score + ' - ' + this.props.match.team2.score}
                     </td>
                     <td className="text-right">
-                        {Math.round(Math.abs(this.props.match.team1.players[0].points) * 10) / 10}
+                        {Math.round(Math.abs(this.props.match.points) * 10) / 10}
                     </td>
                 </tr>;
     }
@@ -55,7 +55,7 @@ var Matches = React.createClass({
                 }
             }
         }.bind(this);
-        req.open('GET', '/match', true );
+        req.open('GET', '/api/match', true );
         req.send();
     },
     render: function(){

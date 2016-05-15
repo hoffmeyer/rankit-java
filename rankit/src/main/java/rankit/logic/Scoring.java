@@ -1,5 +1,6 @@
 package rankit.logic;
 
+import java.util.Date;
 import java.util.Map;
 
 import rankit.model.Match;
@@ -27,26 +28,48 @@ public class Scoring {
 		boolean favouriteTeamIsWinner = favouriteTeam.score > underdogTeam.score;
 		boolean itsADraw = favouriteTeam.score == underdogTeam.score;
 		
+		double points = 0;
 		if(itsADraw){
-            transferPoints(favouriteTeam, underdogTeam, 0, players);
+            transferPoints(favouriteTeam, underdogTeam, points, players);
         } else if (favouriteTeamIsWinner){
-            double points = pointsInPlay * (1 - dist);
+            points = pointsInPlay * (1 - dist);
             transferPoints(underdogTeam, favouriteTeam, points, players);
         } else {
-            double points = pointsInPlay * dist;
+            points = pointsInPlay * dist;
             transferPoints(favouriteTeam, underdogTeam, points, players);
         }
+		
+		match.points = points;
+		match.time = new Date();
 		
 		
 	}
 	
 	private static void transferPoints(Team fromTeam, Team toTeam, double points, Map<Integer, Player> players) {
 		for (int id : fromTeam.players ) {
-			players.get(id).addPoints(-points);
+			Player player = players.get(id);
+			player.addPoints(-points);
+			retisterLoss(player);
 		}
 		for (int id : toTeam.players ) {
-			players.get(id).addPoints(points);
+			Player player = players.get(id);
+			player.addPoints(points);
+			registerWin(player);
 		}
+	}
+
+	private static void registerWin(Player player) {
+		player.setGamesPlayed(player.getGamesPlayed()+1);
+		player.setCurrentWinsInRow(player.getCurrentWinsInRow()+1);
+		player.setCurrentLossesInRow(0);
+		player.setWonGames(player.getWonGames()+1);
+	}
+
+	private static void retisterLoss(Player player) {
+		player.setGamesPlayed(player.getGamesPlayed()+1);
+		player.setCurrentLossesInRow(player.getCurrentLossesInRow()+1);
+		player.setCurrentWinsInRow(0);
+		player.setLostGames(player.getLostGames()+1);
 	}
 
 	private static double getAverageTeamScore( Team team, Map<Integer, Player> players ){
