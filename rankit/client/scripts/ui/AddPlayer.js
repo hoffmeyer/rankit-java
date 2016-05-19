@@ -9,10 +9,10 @@ var AddPlayer = React.createClass({
             nameAvailable: false,
             name: '',
             validationText: ''
-        }
+        };
     },
     validate: function(name){
-        var name = name || this.state.name;
+        name = name || this.state.name;
         if(typeof name !== 'undefined' && name !== ''){
             var matchingPlayers = this.props.players.filter(function(element){
                 return element.name.toLowerCase() === name.toLowerCase();
@@ -36,6 +36,7 @@ var AddPlayer = React.createClass({
         req.setRequestHeader('Content-Type', 'application/json');
         req.onreadystatechange = function(){
             if( req.readyState === 4 && req.status === 200){
+                self.props.updateList(JSON.parse(req.responseText));
                 self.props.onNavigate('list');
             }
         };

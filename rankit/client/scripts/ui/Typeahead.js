@@ -113,7 +113,7 @@ var Typeahead = React.createClass({
     render: function() {
         var self = this;
         var createItem = function(item, index){
-            return <TypeaheadSuggestion item={item} keyboardSelection={self.state.keyboardSelection} suggestionClicked={self.suggestionClicked} index={index} />;
+            return <TypeaheadSuggestion key={item.id} item={item} keyboardSelection={self.state.keyboardSelection} suggestionClicked={self.suggestionClicked} index={index} />;
         };
 
         return  <div className="typeahead" >

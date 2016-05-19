@@ -1,6 +1,5 @@
 package rankit.logic;
 
-import java.util.Date;
 import java.util.Map;
 
 import rankit.model.Match;
@@ -40,9 +39,6 @@ public class Scoring {
         }
 		
 		match.points = points;
-		match.time = new Date();
-		
-		
 	}
 	
 	private static void transferPoints(Team fromTeam, Team toTeam, double points, Map<Integer, Player> players) {

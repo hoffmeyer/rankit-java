@@ -57,6 +57,11 @@ var RankyApp = React.createClass({
           currentPage: newPlace
       });
   },
+  updateList: function(newPlayers){
+      this.setState({
+          players: newPlayers
+      });
+  },
   render: function() {
     return (
           <div className="container">
@@ -66,7 +71,7 @@ var RankyApp = React.createClass({
             </div>
             <Navigation onNavigate={this.onNavigate} pages={this.pages()} currentPage={this.state.currentPage}/>
             <div>
-              <Content onNavigate={this.onNavigate} show={this.state.currentPage} players={this.state.players} source={this.props.source}/>
+              <Content updateList={this.updateList} onNavigate={this.onNavigate} show={this.state.currentPage} players={this.state.players} source={this.props.source}/>
             </div>
           </div>
     );
