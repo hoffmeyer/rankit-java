@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project rankit">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <!--define folder properties-->
+    <property name="dir.buildfile" value="."/>
+    <property name="dir.workspace" value="${dir.workspace}"/>
+    <property name="dir.jarfile" value="."/>
+    <target name="create_run_jar">
+        <jar destfile="./ranky.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="rankit.StartApp"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="${dir.buildfile}/target/classes"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/ro/pippo/pippo-jackson/0.8.0/pippo-jackson-0.8.0.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.6.3/jackson-core-2.6.3.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/com/fasterxml/jackson/module/jackson-module-afterburner/2.6.3/jackson-module-afterburner-2.6.3.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.6.3/jackson-databind-2.6.3.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.6.0/jackson-annotations-2.6.0.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/ro/pippo/pippo-core/0.8.0/pippo-core-0.8.0.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/ro/pippo/pippo-jetty/0.8.0/pippo-jetty-0.8.0.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/org/eclipse/jetty/jetty-server/9.3.5.v20151012/jetty-server-9.3.5.v20151012.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/org/eclipse/jetty/jetty-http/9.3.5.v20151012/jetty-http-9.3.5.v20151012.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/org/eclipse/jetty/jetty-util/9.3.5.v20151012/jetty-util-9.3.5.v20151012.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/org/eclipse/jetty/jetty-io/9.3.5.v20151012/jetty-io-9.3.5.v20151012.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/org/eclipse/jetty/jetty-annotations/9.3.5.v20151012/jetty-annotations-9.3.5.v20151012.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/org/eclipse/jetty/jetty-plus/9.3.5.v20151012/jetty-plus-9.3.5.v20151012.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/org/eclipse/jetty/jetty-jndi/9.3.5.v20151012/jetty-jndi-9.3.5.v20151012.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/org/eclipse/jetty/jetty-webapp/9.3.5.v20151012/jetty-webapp-9.3.5.v20151012.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/org/eclipse/jetty/jetty-xml/9.3.5.v20151012/jetty-xml-9.3.5.v20151012.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/org/eclipse/jetty/jetty-servlet/9.3.5.v20151012/jetty-servlet-9.3.5.v20151012.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/org/eclipse/jetty/jetty-security/9.3.5.v20151012/jetty-security-9.3.5.v20151012.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/javax/annotation/javax.annotation-api/1.2/javax.annotation-api-1.2.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/org/ow2/asm/asm/5.0.1/asm-5.0.1.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/org/ow2/asm/asm-commons/5.0.1/asm-commons-5.0.1.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/org/ow2/asm/asm-tree/5.0.1/asm-tree-5.0.1.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/org/slf4j/slf4j-simple/1.7.21/slf4j-simple-1.7.21.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="C:/Users/Christian/.m2/repository/org/postgresql/postgresql/9.4.1208.jre7/postgresql-9.4.1208.jre7.jar"/>
+        </jar>
+    </target>
+</project>
