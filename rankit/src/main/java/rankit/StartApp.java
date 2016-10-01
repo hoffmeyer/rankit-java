@@ -24,6 +24,15 @@ public class StartApp {
 		String URL = "jdbc:postgresql://localhost:5432/postgres";
 		String USER = "postgres";
 		String PASS = "postgres";
+		
+	    for(String arg : args) {
+	    	URL  = getArg(arg, "url",  URL);
+	    	USER = getArg(arg, "user", USER);
+	    	PASS = getArg(arg, "pass", PASS);		        
+	    }
+	    
+	    System.out.println("DB: "+URL+"\nUSER:"+USER+"\n");
+
 		Connection db;
 
 		try {
@@ -34,6 +43,18 @@ public class StartApp {
 		} catch (SQLException e) {
 			logger.log(Level.SEVERE, "Database connection failed", e);
 		}
+	}
+	
+	// Decode args with the pattern: -url=xxxxxxx -user=yyyyyy -pass=zzzzzz 
+	private static String getArg(String arg, String name, String _default) {
+		
+		if(arg.startsWith("-"+name+"=")) {
+			return arg.substring(name.length()+2);
+		} else {
+			return _default;
+		}
+		
+		
 	}
 
 }
