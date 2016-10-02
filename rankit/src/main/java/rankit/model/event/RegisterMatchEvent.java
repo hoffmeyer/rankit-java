@@ -3,24 +3,24 @@ package rankit.model.event;
 import rankit.model.Match;
 
 public class RegisterMatchEvent extends Event{
-	private Match _match;
+	private Match match;
 
 	public RegisterMatchEvent() {}
 
 	public RegisterMatchEvent(Match match) {
-		_match = match;
+		this.match = match;
 	}
 
 	public Match getMatch() {
-		return _match;
+		return match;
 	}
 
 	public void setMatch(Match match) {
-		this._match = match;
+		this.match = match;
 	}
 
 	@Override
 	protected String defineType() {
-		return this.getClass().getName();
+		return "RegisterMatch";
 	}
 }

@@ -14,6 +14,10 @@ public class Player {
 	
 	public Player(){ }
 
+	public Player( String name ){
+		this.name = name;
+	}
+
 	public Player( int id, String name, int points ){
 		this.id = id;
 		this.name = name;

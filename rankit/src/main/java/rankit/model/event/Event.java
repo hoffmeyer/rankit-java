@@ -4,12 +4,12 @@ import java.util.Date;
 
 abstract public class Event {
 	private static int count = 0;
-	private Date created = new Date();
+	private Date eventTime = new Date();
 	private int id;
-	private final String type; 
-	
+	private final String type;
+
 	abstract protected String defineType();
-	
+
 	protected Event() {
 		id = ++count;
 		type = defineType();
@@ -18,17 +18,17 @@ abstract public class Event {
 	public int getId() {
 		return id;
 	}
-	
-	public void setId( int newId ) {
+
+	public void setId(int newId) {
 		id = newId;
 	}
 
-	public Date getCreated() {
-		return created;
+	public Date getEventTime() {
+		return eventTime;
 	}
 
-	public void setCreated(Date created) {
-		this.created = created;
+	public void setEventTime(Date eventTime) {
+		this.eventTime = eventTime;
 	}
 
 	public String getType() {

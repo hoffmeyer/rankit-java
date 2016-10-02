@@ -55,7 +55,7 @@ public class RankitApp extends Application {
 			Player newPlayer = routeContext.createEntityFromBody(Player.class);
 			if (newPlayer != null) {
 				addNewPlayer(newPlayer);
-				_db.saveEvent(new CreatePlayerEvent(newPlayer));
+				_db.saveEvent(new CreatePlayerEvent(newPlayer.getId(), newPlayer.getName()));
 				routeContext.json().send(getSortedPlayerlist());
 			} else {
 				routeContext.status(501).send("Attribute name is undefined");
@@ -69,7 +69,6 @@ public class RankitApp extends Application {
 		POST("/api/match", (routeContext) -> {
 			Match match = routeContext.createEntityFromBody(Match.class);
 			if(match != null){
-				match.time = new Date();
 				registerMatch(match);
 				_db.saveEvent(new RegisterMatchEvent(match));
 				routeContext.json().send(getSortedPlayerlist());
@@ -110,7 +109,8 @@ public class RankitApp extends Application {
 	private void applyEvents(List<Event> list) {
 		for (Event event : list) {
 			if (event instanceof CreatePlayerEvent) {
-				addNewPlayer(((CreatePlayerEvent) event).getPlayer());
+				CreatePlayerEvent playerEvent = ((CreatePlayerEvent) event);
+				addNewPlayer(new Player(playerEvent.getPlayerName()));
 			} else if (event instanceof RegisterMatchEvent) {
 				registerMatch(((RegisterMatchEvent) event).getMatch());
 			} else {

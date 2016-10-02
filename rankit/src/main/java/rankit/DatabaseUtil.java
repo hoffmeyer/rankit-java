@@ -80,9 +80,9 @@ public class DatabaseUtil {
 			while (rs.next()) {
 				String data = rs.getString("data");
 				Event event = null;
-				if(data.contains(CreatePlayerEvent.class.getName())){
+				if(data.contains("createPlayer")){
 					event = _jsonMapper.readValue(data, CreatePlayerEvent.class);
-				} else if(data.contains(RegisterMatchEvent.class.getName())){
+				} else if(data.contains("registerMatch")){
 					event = _jsonMapper.readValue(data, RegisterMatchEvent.class);
 				} else {
 					logger.warning("Unknown event loaded from database: " + data);

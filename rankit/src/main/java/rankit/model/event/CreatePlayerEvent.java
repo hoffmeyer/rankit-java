@@ -1,27 +1,28 @@
 package rankit.model.event;
 
-import rankit.model.Player;
-
 public class CreatePlayerEvent extends Event {
-	private Player player;
-
+	
+	private String playerName;
+	private int playerId;
+	
 	public CreatePlayerEvent() {}
 
-	public CreatePlayerEvent(Player newPlayer) {
-		player = newPlayer;
+	public CreatePlayerEvent(int playerId, String playerName) {
+		this.playerName = playerName;
+		this.playerId = playerId;
 	}
 
-	public Player getPlayer() {
-		return player;
-	}
-
-	public void setPlayer(Player player) {
-		this.player = player;
+	public String getPlayerName() {
+		return playerName;
 	}
 
 	@Override
 	protected String defineType() {
-		return this.getClass().getName();
+		return "CreatePlayer";
+	}
+
+	public int getPlayerId() {
+		return playerId;
 	}
 
 }
