@@ -45,7 +45,7 @@ public class RankitApp extends Application {
         /*
          * root redirect
          */
-        GET("/", new RedirectHandler("/public/index.html"));
+        GET("/", new RedirectHandler("/index.html"));
 
 		GET("/api/list", (routeContext) -> {
 			routeContext.json().send(getSortedPlayerlist());
