@@ -1,6 +1,7 @@
 package rankit;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +71,9 @@ public class RankitApp extends Application {
 		POST("/api/match", (routeContext) -> {
 			Match match = routeContext.createEntityFromBody(Match.class);
 			if(match != null){
+				if( match.time == null ) {
+					match.time = new Date();
+				}				
 				registerMatch(match);
 				_db.saveEvent(new RegisterMatchEvent(match));
 				routeContext.json().send(getSortedPlayerlist());
