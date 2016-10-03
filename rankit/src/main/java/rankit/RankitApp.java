@@ -1,7 +1,6 @@
 package rankit;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +62,9 @@ public class RankitApp extends Application {
 		});
 		
 		GET("/api/match", (routeContext) -> {
-			routeContext.json().send(matches);
+			List<Match> latestMatches = matches.subList(Math.max(matches.size() - 100, 0), matches.size());
+			latestMatches.sort( (o1, o2) -> o2.time.compareTo(o1.time));
+			routeContext.json().send(latestMatches);
 		});
 
 		POST("/api/match", (routeContext) -> {
@@ -112,7 +113,11 @@ public class RankitApp extends Application {
 				CreatePlayerEvent playerEvent = ((CreatePlayerEvent) event);
 				addNewPlayer(new Player(playerEvent.getPlayerName()));
 			} else if (event instanceof RegisterMatchEvent) {
-				registerMatch(((RegisterMatchEvent) event).getMatch());
+				Match match = ((RegisterMatchEvent) event).getMatch();
+				if( match.time == null ) {
+					match.time = event.getEventTime();
+				}
+				registerMatch(match);
 			} else {
 				logger.error("Unhanled event i applyEvents " + event.getClass().getName());
 			}
