@@ -18,7 +18,7 @@ public class CreatePlayerEvent extends Event {
 
 	@Override
 	protected String defineType() {
-		return "CreatePlayer";
+		return "createPlayer";
 	}
 
 	public int getPlayerId() {

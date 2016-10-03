@@ -21,6 +21,6 @@ public class RegisterMatchEvent extends Event{
 
 	@Override
 	protected String defineType() {
-		return "RegisterMatch";
+		return "registerMatch";
 	}
 }
