@@ -10,6 +10,7 @@ import ro.pippo.core.Pippo;
 
 public class StartApp {
 
+	
 	public static void main(String[] args) {
 		
 		Logger logger = Logger.getLogger("StartApp");
