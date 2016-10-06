@@ -23,6 +23,7 @@ public class RankitApp extends Application {
 	private Logger logger = LoggerFactory.getLogger(RankitApp.class);
 	private Map<Integer, Player> players = new HashMap<>();
 	private List<Match> matches = new ArrayList<>();
+	private boolean matches_need_sorting = false;
 	private DatabaseUtil _db;
 
 	public RankitApp(DatabaseUtil db) {
@@ -63,8 +64,9 @@ public class RankitApp extends Application {
 		});
 		
 		GET("/api/match", (routeContext) -> {
-			List<Match> latestMatches = matches.subList(Math.max(matches.size() - 100, 0), matches.size());
-			latestMatches.sort( (o1, o2) -> o2.time.compareTo(o1.time));
+			sortMatchesIfNeeded();
+			List<Match> latestMatches = matches.subList( 0, Math.min(matches.size(), 100) );
+		
 			routeContext.json().send(latestMatches);
 		});
 
@@ -105,8 +107,17 @@ public class RankitApp extends Application {
 	private void registerMatch(Match match) {
 		Scoring.score(match, players);
 		matches.add(match);
+		matches_need_sorting = true;
 	}
 
+	// Synchronized to avoid competetive sorting
+	private synchronized void sortMatchesIfNeeded() {
+		if(matches_need_sorting == false)
+			return;				
+		matches.sort( (o1, o2) -> o2.time.compareTo(o1.time));		
+		matches_need_sorting = false;
+	}
+	
 	private void initList() {
 		applyEvents(_db.getEvents());
 	}

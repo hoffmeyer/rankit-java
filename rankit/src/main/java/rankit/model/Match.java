@@ -7,4 +7,10 @@ public class Match {
 	public Team team2;
 	public double points;
 	public Date time;
+	
+	@Override
+	public String toString() {
+
+		return "Match: "+time.toString();
+	}
 }
