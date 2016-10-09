@@ -74,7 +74,7 @@ public class DatabaseUtil {
 		ArrayList<Event> events = new ArrayList<>();
 		try {
 			Statement s = _db.createStatement();
-			String sql = "SELECT * FROM events";
+			String sql = "SELECT * FROM events ORDER BY id ASC ";
 			ResultSet rs = s.executeQuery(sql);
 			int numEvents = 0;
 			while (rs.next()) {
