@@ -14,8 +14,9 @@ public class Player {
 	
 	public Player(){ }
 
-	public Player( String name ){
+	public Player( String name, int id ){
 		this.name = name;
+		this.id = id;
 	}
 
 	public Player( int id, String name, int points ){
@@ -83,5 +84,10 @@ public class Player {
 	}
 	public void setCurrentLossesInRow(int currentLossesInRow) {
 		this.currentLossesInRow = currentLossesInRow;
+	}
+	
+	@Override
+	public String toString() {
+		return "["+name+":"+points+"]";
 	}
 }

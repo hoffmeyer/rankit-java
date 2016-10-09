@@ -55,6 +55,7 @@ public class RankitApp extends Application {
 		POST("/api/player", (routeContext) -> {
 			Player newPlayer = routeContext.createEntityFromBody(Player.class);
 			if (newPlayer != null) {
+				newPlayer.setId(findUnusedPlayerId());
 				addNewPlayer(newPlayer);
 				_db.saveEvent(new CreatePlayerEvent(newPlayer.getId(), newPlayer.getName()));
 				routeContext.json().send(getSortedPlayerlist());
@@ -98,8 +99,6 @@ public class RankitApp extends Application {
 	}
 
 	private void addNewPlayer(Player newPlayer) {
-		int id = players.size() + 1;
-		newPlayer.setId(id);
 		newPlayer.addPoints(1000);
 		players.put(newPlayer.getId(), newPlayer);
 	}
@@ -126,7 +125,7 @@ public class RankitApp extends Application {
 		for (Event event : list) {
 			if (event instanceof CreatePlayerEvent) {
 				CreatePlayerEvent playerEvent = ((CreatePlayerEvent) event);
-				addNewPlayer(new Player(playerEvent.getPlayerName()));
+				addNewPlayer(new Player(playerEvent.getPlayerName(), playerEvent.getPlayerId()));
 			} else if (event instanceof RegisterMatchEvent) {
 				Match match = ((RegisterMatchEvent) event).getMatch();
 				if( match.time == null ) {
@@ -134,8 +133,28 @@ public class RankitApp extends Application {
 				}
 				registerMatch(match);
 			} else {
-				logger.error("Unhanled event i applyEvents " + event.getClass().getName());
+				logger.error("Unhandled event i applyEvents " + event.getClass().getName());
 			}
 		}
+	}
+	
+	private synchronized int findUnusedPlayerId() {
+		int tryThisId = (int) Math.floor( Math.random()*100000000+100 );
+		
+		boolean playerExists = true;
+		
+		for(int i=0;i<100;i++) {
+			playerExists = players.containsKey(new Integer(tryThisId));
+			if(!playerExists) {
+				break;
+			} else {
+				tryThisId++;
+			}
+		}
+		
+		if(playerExists)
+			throw new RuntimeException("Couldn't find unused playerId!");
+		
+		return tryThisId;
 	}
 }
