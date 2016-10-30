@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import rankit.RankitEngine;
+import rankit.logic.RankitEngine;
 import rankit.model.Match;
 import rankit.model.Player;
 import rankit.model.Team;

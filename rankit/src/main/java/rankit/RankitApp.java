@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import rankit.logic.RankitEngine;
 import rankit.model.Match;
 import rankit.model.Player;
 import rankit.model.event.CreatePlayerEvent;

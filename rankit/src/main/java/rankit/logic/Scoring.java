@@ -45,7 +45,7 @@ public class Scoring {
 		for (int id : fromTeam.players ) {
 			Player player = players.get(id);
 			player.addPoints(-points);
-			retisterLoss(player);
+			registerLoss(player);
 		}
 		for (int id : toTeam.players ) {
 			Player player = players.get(id);
@@ -61,7 +61,7 @@ public class Scoring {
 		player.setWonGames(player.getWonGames()+1);
 	}
 
-	private static void retisterLoss(Player player) {
+	private static void registerLoss(Player player) {
 		player.setGamesPlayed(player.getGamesPlayed()+1);
 		player.setCurrentLossesInRow(player.getCurrentLossesInRow()+1);
 		player.setCurrentWinsInRow(0);

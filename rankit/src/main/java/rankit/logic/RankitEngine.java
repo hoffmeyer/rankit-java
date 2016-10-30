@@ -1,4 +1,4 @@
-package rankit;
+package rankit.logic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +8,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import rankit.logic.Scoring;
+import rankit.RankitApp;
 import rankit.model.Match;
 import rankit.model.Player;
 import rankit.model.event.CreatePlayerEvent;
