@@ -35,7 +35,7 @@ public class RankitMetaTest {
 		
 		Assert.assertEquals( 1048, 	engine.getPlayer("Anders").getPoints() );
 		Assert.assertEquals( 1025, 	engine.getPlayer("Benny").getPoints() );
-		Assert.assertEquals( 951, 	engine.getPlayer("Carl").getPoints() );
+		Assert.assertEquals( 952, 	engine.getPlayer("Carl").getPoints() );
 		Assert.assertEquals( 975, 	engine.getPlayer("Daniel").getPoints() );		
 		Assert.assertEquals( 1000, 	engine.getPlayer("Ewe").getPoints() );
 	}

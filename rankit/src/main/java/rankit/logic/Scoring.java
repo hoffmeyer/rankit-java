@@ -9,7 +9,7 @@ import rankit.model.Team;
 public class Scoring {
 	
 	public static void score( Match match, Map<Integer, Player> players ){
-		double pointsInPlay = 50;
+		int pointsInPlay = 50;
 		double averageScoreTeam1 = getAverageTeamScore(match.team1, players);
 		double averageScoreTeam2 = getAverageTeamScore(match.team2, players);
 		double dist = getDistribution(averageScoreTeam1, averageScoreTeam2);
@@ -27,14 +27,14 @@ public class Scoring {
 		boolean favouriteTeamIsWinner = favouriteTeam.score > underdogTeam.score;
 		boolean itsADraw = favouriteTeam.score == underdogTeam.score;
 		
-		double points = 0;
+		int points = 0;
 		if(itsADraw){
             transferPoints(favouriteTeam, underdogTeam, points, players);
         } else if (favouriteTeamIsWinner){
-            points = pointsInPlay * (1 - dist);
+            points = (int)(pointsInPlay * (1 - dist));
             transferPoints(underdogTeam, favouriteTeam, points, players);
         } else {
-            points = pointsInPlay * dist;
+            points = (int)(pointsInPlay * dist);
             transferPoints(favouriteTeam, underdogTeam, points, players);
         }
 		
