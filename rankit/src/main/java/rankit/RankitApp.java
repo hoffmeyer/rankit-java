@@ -48,9 +48,7 @@ public class RankitApp extends Application {
         GET("/", new RedirectHandler("/public/index.html"));
 
 		GET("/api/list", (routeContext) -> {
-			List<Player> playerList = new ArrayList<Player>(players.values());
-			playerList.sort((p1, p2) -> p2.getPoints() - p1.getPoints());
-			routeContext.json().send(playerList);
+			routeContext.json().send(getSortedList());
 		});
 
 		POST("/api/player", (routeContext) -> {
@@ -73,12 +71,18 @@ public class RankitApp extends Application {
 			if(match != null){
 				registerMatch(match);
 				_db.saveEvent(new RegisterMatchEvent(match));
-				routeContext.send("OK");
+				routeContext.json().send(getSortedList());;
 			} else {
 				routeContext.status(501).send("Attribute match is incorrect");
 			}
 
 		});
+	}
+
+	private List<Player> getSortedList() {
+		List<Player> playerList = new ArrayList<Player>(players.values());
+		playerList.sort((p1, p2) -> p2.getPoints() - p1.getPoints());
+		return playerList;
 	}
 
 	@Override
