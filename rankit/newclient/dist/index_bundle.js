@@ -9534,6 +9534,14 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+function Greet(props) {
+  return _react2.default.createElement(
+    'h1',
+    null,
+    props.greeting
+  );
+}
+
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
 
@@ -9546,14 +9554,10 @@ var App = function (_React$Component) {
   _createClass(App, [{
     key: 'render',
     value: function render() {
-      return h(
+      return _react2.default.createElement(
         'div',
         { style: { textAlign: 'center' } },
-        h(
-          'h1',
-          null,
-          'Hello World'
-        )
+        _react2.default.createElement(Greet, { greeting: 'Hello Worlds' })
       );
     }
   }]);
@@ -9594,7 +9598,7 @@ var _App2 = _interopRequireDefault(_App);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom2.default.render(h(_App2.default, null), document.getElementById('root'));
+_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
 
 /***/ }),
 /* 84 */
