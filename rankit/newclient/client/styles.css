@@ -1,0 +1,6 @@
+body, a {
+  font-family: monospace;
+  background-color: black;
+  background-color: rgb( 30, 30, 30);
+  color: rgb(105, 219, 141);
+}
