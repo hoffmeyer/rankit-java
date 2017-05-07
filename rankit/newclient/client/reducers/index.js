@@ -1,25 +1,36 @@
 // @flow
 import {combineReducers} from 'redux';
 import {
-  INCREMENT,
-  DECREMENT
+  REQUEST_LIST,
+  RECEIVE_LIST
 } from '../actions'
 import type {State} from '../types'
 
-const count = (state = 0, action) => {
+const list = (state = [], action) => {
   switch (action.type){
-    case INCREMENT:
-      console.log( "count: " + state)
-      return state + 1
-    case DECREMENT:
-      return state - 1
+    case RECEIVE_LIST:
+      console.log('the list has been received')
+    default:
+      return state
+  }
+}
+
+const isListLoading = (state = false, action) => {
+  switch (action.type){
+    case REQUEST_LIST:
+      console.log('is now loading')
+      return true
+    case RECEIVE_LIST:
+      console.log('finished loading')
+      return false
     default:
       return state
   }
 }
 
 const rootReducer = combineReducers({
-  count
+  list,
+  isListLoading
 });
 
 export default rootReducer;

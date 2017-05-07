@@ -1,6 +1,5 @@
 package rankit;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +38,7 @@ public class RankitApp extends Application {
          */
         ALL("/.*", routeContext -> {
 		    logger.info("Request for {} '{}'", routeContext.getRequestMethod(), routeContext.getRequestUri());
+		    routeContext.getResponse().header("Access-Control-Allow-Origin", "*");
 		    routeContext.next();
 		});
         
