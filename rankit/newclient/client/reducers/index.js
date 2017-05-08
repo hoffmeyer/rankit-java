@@ -9,7 +9,7 @@ import type {State} from '../types'
 const list = (state = [], action) => {
   switch (action.type){
     case RECEIVE_LIST:
-      console.log('the list has been received')
+      return action.list
     default:
       return state
   }

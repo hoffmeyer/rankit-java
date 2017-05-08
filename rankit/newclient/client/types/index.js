@@ -6,7 +6,7 @@ export type Id = number
 export type Player = {
   +id: Id,
   +name: string,
-  +score: number
+  +points: number
 }
 
 export type List = Array<Player>

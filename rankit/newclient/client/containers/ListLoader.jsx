@@ -11,8 +11,15 @@ class ListLoader extends Component{
   }
 
   render() {
-    return <List/>
+    return <List list={this.props.list}/>
   }
 }
 
-export default connect()(ListLoader);
+const mapStateToProps = state => {
+  const {list} = state
+  return {
+    list
+  }
+}
+
+export default connect(mapStateToProps)(ListLoader);
