@@ -9,19 +9,19 @@
 		<dependency>
 			<groupId>ro.pippo</groupId>
 			<artifactId>pippo-jackson</artifactId>
-			<version>0.8.0</version>
+			<version>1.4.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>ro.pippo</groupId>
 			<artifactId>pippo-core</artifactId>
-			<version>0.8.0</version>
+			<version>1.4.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>ro.pippo</groupId>
 			<artifactId>pippo-jetty</artifactId>
-			<version>0.8.0</version>
+			<version>1.4.0</version>
 		</dependency>
 
 		<dependency>
