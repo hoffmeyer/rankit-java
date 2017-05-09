@@ -8,4 +8,9 @@ public class Match {
 	public double points;
 	public Date time;
 	
+	@Override
+	public String toString() {
+
+		return "Match@"+time.toString()+" ("+team1.score+"-"+team2.score+") ";
+	}
 }

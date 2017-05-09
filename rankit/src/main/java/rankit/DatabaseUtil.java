@@ -74,15 +74,15 @@ public class DatabaseUtil {
 		ArrayList<Event> events = new ArrayList<>();
 		try {
 			Statement s = _db.createStatement();
-			String sql = "SELECT * FROM events";
+			String sql = "SELECT * FROM events ORDER BY id ASC ";
 			ResultSet rs = s.executeQuery(sql);
 			int numEvents = 0;
 			while (rs.next()) {
 				String data = rs.getString("data");
 				Event event = null;
-				if(data.contains(CreatePlayerEvent.class.getName())){
+				if(data.contains("createPlayer")){
 					event = _jsonMapper.readValue(data, CreatePlayerEvent.class);
-				} else if(data.contains(RegisterMatchEvent.class.getName())){
+				} else if(data.contains("registerMatch")){
 					event = _jsonMapper.readValue(data, RegisterMatchEvent.class);
 				} else {
 					logger.warning("Unknown event loaded from database: " + data);

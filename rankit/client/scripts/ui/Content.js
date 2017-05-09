@@ -13,12 +13,14 @@ var Content = React.createClass({
                         onNavigate={this.props.onNavigate} 
                         players={this.props.players} 
                         source={this.props.source}
+                        updateList={this.props.updateList}
                     />;
         } else if(this.props.show === 'addPlayer'){
             return <AddPlayer 
                         onNavigate={this.props.onNavigate} 
                         players={this.props.players} 
                         source={this.props.source}
+                        updateList={this.props.updateList}
                     />;
         } else if(this.props.show === 'matches'){
             return <Matches players={this.props.players} />;

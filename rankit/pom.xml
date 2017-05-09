@@ -9,19 +9,19 @@
 		<dependency>
 			<groupId>ro.pippo</groupId>
 			<artifactId>pippo-jackson</artifactId>
-			<version>0.8.0</version>
+			<version>1.4.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>ro.pippo</groupId>
 			<artifactId>pippo-core</artifactId>
-			<version>0.8.0</version>
+			<version>1.4.0</version>
 		</dependency>
 
 		<dependency>
 			<groupId>ro.pippo</groupId>
 			<artifactId>pippo-jetty</artifactId>
-			<version>0.8.0</version>
+			<version>1.4.0</version>
 		</dependency>
 
 		<dependency>
@@ -35,6 +35,13 @@
             <artifactId>postgresql</artifactId>
             <version>9.4.1208.jre7</version>
         </dependency>
+
+	    <dependency>
+	      <groupId>junit</groupId>
+	      <artifactId>junit</artifactId>
+	      <version>4.11</version>
+	      <scope>test</scope>
+	    </dependency>
 
 	</dependencies>
 	<build>

@@ -1,6 +1,5 @@
 package rankit.logic;
 
-import java.util.Date;
 import java.util.Map;
 
 import rankit.model.Match;
@@ -10,7 +9,7 @@ import rankit.model.Team;
 public class Scoring {
 	
 	public static void score( Match match, Map<Integer, Player> players ){
-		double pointsInPlay = 50;
+		int pointsInPlay = 50;
 		double averageScoreTeam1 = getAverageTeamScore(match.team1, players);
 		double averageScoreTeam2 = getAverageTeamScore(match.team2, players);
 		double dist = getDistribution(averageScoreTeam1, averageScoreTeam2);
@@ -28,28 +27,25 @@ public class Scoring {
 		boolean favouriteTeamIsWinner = favouriteTeam.score > underdogTeam.score;
 		boolean itsADraw = favouriteTeam.score == underdogTeam.score;
 		
-		double points = 0;
+		int points = 0;
 		if(itsADraw){
             transferPoints(favouriteTeam, underdogTeam, points, players);
         } else if (favouriteTeamIsWinner){
-            points = pointsInPlay * (1 - dist);
+            points = (int)(pointsInPlay * (1 - dist));
             transferPoints(underdogTeam, favouriteTeam, points, players);
         } else {
-            points = pointsInPlay * dist;
+            points = (int)(pointsInPlay * dist);
             transferPoints(favouriteTeam, underdogTeam, points, players);
         }
 		
 		match.points = points;
-		match.time = new Date();
-		
-		
 	}
 	
 	private static void transferPoints(Team fromTeam, Team toTeam, double points, Map<Integer, Player> players) {
 		for (int id : fromTeam.players ) {
 			Player player = players.get(id);
 			player.addPoints(-points);
-			retisterLoss(player);
+			registerLoss(player);
 		}
 		for (int id : toTeam.players ) {
 			Player player = players.get(id);
@@ -65,7 +61,7 @@ public class Scoring {
 		player.setWonGames(player.getWonGames()+1);
 	}
 
-	private static void retisterLoss(Player player) {
+	private static void registerLoss(Player player) {
 		player.setGamesPlayed(player.getGamesPlayed()+1);
 		player.setCurrentLossesInRow(player.getCurrentLossesInRow()+1);
 		player.setCurrentWinsInRow(0);

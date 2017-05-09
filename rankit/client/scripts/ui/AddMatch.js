@@ -112,6 +112,7 @@ var AddMatch = React.createClass({
         req.setRequestHeader('Content-Type', 'application/json');
         req.onreadystatechange = function(){
             if( req.readyState === 4 && req.status === 200){
+                self.props.updateList(JSON.parse(req.responseText));
                 self.props.onNavigate('list');
             }
         };

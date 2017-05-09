@@ -1,27 +1,24 @@
 package rankit;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import rankit.logic.Scoring;
+import rankit.logic.RankitEngine;
 import rankit.model.Match;
 import rankit.model.Player;
 import rankit.model.event.CreatePlayerEvent;
-import rankit.model.event.Event;
 import rankit.model.event.RegisterMatchEvent;
 import ro.pippo.core.Application;
 import ro.pippo.core.RedirectHandler;
 
 public class RankitApp extends Application {
-
+	
+	private RankitEngine engine = new RankitEngine();
+		
 	private Logger logger = LoggerFactory.getLogger(RankitApp.class);
-	private Map<Integer, Player> players = new HashMap<>();
-	private List<Match> matches = new ArrayList<>();
 	private DatabaseUtil _db;
 
 	public RankitApp(DatabaseUtil db) {
@@ -45,76 +42,58 @@ public class RankitApp extends Application {
         /*
          * root redirect
          */
-        GET("/", new RedirectHandler("/public/index.html"));
+        GET("/", new RedirectHandler("/index.html"));
 
 		GET("/api/list", (routeContext) -> {
-			routeContext.json().send(getSortedList());
+			routeContext.json().send(engine.getSortedPlayerlist());
 		});
 
 		POST("/api/player", (routeContext) -> {
+
 			Player newPlayer = routeContext.createEntityFromBody(Player.class);
-			if (newPlayer != null) {
-				addNewPlayer(newPlayer);
-				_db.saveEvent(new CreatePlayerEvent(newPlayer));
-				routeContext.send("OK");
-			} else {
+			if (newPlayer == null) {
 				routeContext.status(501).send("Attribute name is undefined");
+				return;			
 			}
+			
+			CreatePlayerEvent createPlayerEvent = engine.newAndApplyCreatePlayerEvent( newPlayer.getName() );
+			_db.saveEvent(createPlayerEvent);
+			
+			routeContext.json().send(engine.getSortedPlayerlist());
+
 		});
 		
 		GET("/api/match", (routeContext) -> {
-			routeContext.json().send(matches);
+			List<Match> latestMatches = engine.getSortedMatchList();
+			routeContext.json().send(latestMatches);
 		});
 
 		POST("/api/match", (routeContext) -> {
 			Match match = routeContext.createEntityFromBody(Match.class);
-			if(match != null){
-				registerMatch(match);
-				_db.saveEvent(new RegisterMatchEvent(match));
-				routeContext.json().send(getSortedList());;
-			} else {
-				routeContext.status(501).send("Attribute match is incorrect");
+			if(match == null){ 
+				routeContext.status(501).send("Attribute match is incorrect");			
 			}
+			
+			if( match.time == null ) {
+				match.time = new Date();
+			}				
+			
+			RegisterMatchEvent registerMatchEvent = engine.newAndApplyRegisterMatchEvent(match);
+			_db.saveEvent(registerMatchEvent);
+			
+			routeContext.json().send(engine.getSortedPlayerlist());
 
 		});
-	}
-
-	private List<Player> getSortedList() {
-		List<Player> playerList = new ArrayList<Player>(players.values());
-		playerList.sort((p1, p2) -> p2.getPoints() - p1.getPoints());
-		return playerList;
 	}
 
 	@Override
 	protected void onDestroy() {
 		_db.close();
 	}
-
-	private void addNewPlayer(Player newPlayer) {
-		int id = players.size() + 1;
-		newPlayer.setId(id);
-		newPlayer.addPoints(1000);
-		players.put(newPlayer.getId(), newPlayer);
-	}
-
-	private void registerMatch(Match match) {
-		Scoring.score(match, players);
-		matches.add(match);
-	}
-
+	
 	private void initList() {
-		applyEvents(_db.getEvents());
+		engine.applyEvents(_db.getEvents());
 	}
 
-	private void applyEvents(List<Event> list) {
-		for (Event event : list) {
-			if (event instanceof CreatePlayerEvent) {
-				addNewPlayer(((CreatePlayerEvent) event).getPlayer());
-			} else if (event instanceof RegisterMatchEvent) {
-				registerMatch(((RegisterMatchEvent) event).getMatch());
-			} else {
-				logger.error("Unhanled event i applyEvents " + event.getClass().getName());
-			}
-		}
-	}
+	
 }
