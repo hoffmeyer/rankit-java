@@ -2,7 +2,6 @@ package rankit.test;
 
 import java.util.List;
 
-import org.eclipse.jetty.io.NetworkTrafficSelectChannelEndPoint;
 import org.junit.Assert;
 import org.junit.Test;
 

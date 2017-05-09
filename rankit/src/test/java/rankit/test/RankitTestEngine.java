@@ -2,7 +2,6 @@ package rankit.test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import rankit.logic.RankitEngine;
 import rankit.model.Match;
