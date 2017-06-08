@@ -4,35 +4,27 @@ import { HashRouter as Router, Route, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import type { State } from '../types'
 import ListLoader from '../containers/ListLoader.jsx'
+import MatchesLoader from '../containers/MatchesLoader.jsx'
 
-type GreetProps = {
-  greeting: string,
-}
-
-const Greet = (props: GreetProps) => (
-    <h1>{props.greeting}</h1>
+const NewPlayer = () => (
+  <h1>New Player</h1>
 )
 
-const Matches = () => (
-  <h1>Matches</h1>
-)
-
-const App = (state) => (
+const App = (state: State) => (
    <div style={{textAlign: 'center'}}>
      <Router>
        <div>
          <ul>
            <li><Link to="/">List</Link></li>
-           <li><Link to="/test">Matches</Link></li>
+           <li><Link to="/matches">Matches</Link></li>
+           <li><Link to="/addPlayer">New Player</Link></li>
          </ul>
-
-         <hr/>
-
          <Route exact path='/' component={ListLoader}/>
-         <Route path='/test' component={Matches}/>
+         <Route path='/matches' component={MatchesLoader}/>
+         <Route path='/addPlayer' component={NewPlayer}/>
        </div>
      </Router>
     </div>
-)
+  )
 
 export default connect()(App);

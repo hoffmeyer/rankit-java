@@ -9,7 +9,7 @@ const toListElement = (player: Player) => (
   </tr>
 )
 
-const List = ({list}: State) => (
+export const List = ({list}: State) => (
   <div>
     <h1>The List!</h1>
     <table>
@@ -25,5 +25,3 @@ const List = ({list}: State) => (
     </table>
   </div>
 )
-
-export default List;

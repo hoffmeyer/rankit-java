@@ -5,7 +5,7 @@ js:
         - ./client:/src/app
         - ./src/main/resources/public:/src/dist
 db:
-    image: postgres:9.6-alpine
+    image: postgres:9.4-alpine
     ports:
         - "5432:5432"
     environment:
