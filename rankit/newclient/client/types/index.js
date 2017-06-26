@@ -6,7 +6,14 @@ export type Id = number
 export type Player = {
   +id: Id,
   +name: string,
-  +points: number
+  +points: number,
+  +gamesPlayed: number,
+  +lostGames: number,
+  +wonGames: number,
+  +mostWinsInRow: number,
+  +mostLossesInRow: number,
+  +currentWinsInRow: number,
+  +currentLossesInRow: number
 }
 
 export type Team = {
