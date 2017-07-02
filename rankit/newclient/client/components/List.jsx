@@ -20,7 +20,7 @@ const toListElement = (player: Player) => (
 
 export const List = ({list}: State) => (
   <div>
-    <h1>The List!</h1>
+    <h1>The List</h1>
     <table>
       <thead>
         <tr>

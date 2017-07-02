@@ -30,17 +30,19 @@ public class RankitEngine {
 
 		public void applyEvents(List<Event> list) {
 			for (Event event : list) {
-				if (event instanceof CreatePlayerEvent) {
-					CreatePlayerEvent playerEvent = ((CreatePlayerEvent) event);
-					addNewPlayer(new Player(playerEvent.getPlayerName(), playerEvent.getPlayerId()));
-				} else if (event instanceof RegisterMatchEvent) {
-					Match match = ((RegisterMatchEvent) event).getMatch();
-					if( match.time == null ) {
-						match.time = event.getEventTime();
+				if( !event.isCancelled() ){
+					if (event instanceof CreatePlayerEvent) {
+						CreatePlayerEvent playerEvent = ((CreatePlayerEvent) event);
+						addNewPlayer(new Player(playerEvent.getPlayerName(), playerEvent.getPlayerId()));
+					} else if (event instanceof RegisterMatchEvent) {
+						Match match = ((RegisterMatchEvent) event).getMatch();
+						if( match.time == null ) {
+							match.time = event.getEventTime();
+						}
+						registerMatch(match);
+					} else {
+						logger.error("Unhandled event i applyEvents " + event.getClass().getName());
 					}
-					registerMatch(match);
-				} else {
-					logger.error("Unhandled event i applyEvents " + event.getClass().getName());
 				}
 			}
 		}

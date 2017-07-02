@@ -3,6 +3,7 @@ package rankit.model;
 import java.util.Date;
 
 public class Match {
+	public int id;
 	public Team team1;
 	public Team team2;
 	public double points;
@@ -10,7 +11,6 @@ public class Match {
 	
 	@Override
 	public String toString() {
-
-		return "Match@"+time.toString()+" ("+team1.score+"-"+team2.score+") ";
+		return "Match@"+ id + ":" + time.toString()+" ("+team1.score+"-"+team2.score+") ";
 	}
 }

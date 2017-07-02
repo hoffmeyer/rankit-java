@@ -7,6 +7,7 @@ abstract public class Event {
 	private Date eventTime = new Date();
 	private int id;
 	private final String type;
+	private boolean cancelled;
 
 	abstract protected String defineType();
 
@@ -34,4 +35,13 @@ abstract public class Event {
 	public String getType() {
 		return type;
 	}
+
+	public boolean isCancelled() {
+		return cancelled;
+	}
+
+	public void setCancelled(boolean cancelled) {
+		this.cancelled = cancelled;
+	}
+
 }

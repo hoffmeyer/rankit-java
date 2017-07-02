@@ -1,6 +1,36 @@
+:root {
+  --primary-color: rgb(105, 219, 141);
+}
+
 body, a {
   font-family: monospace;
+  font-size: 2vw;
   background-color: black;
   background-color: rgb( 30, 30, 30);
-  color: rgb(105, 219, 141);
+  color: var(--primary-color);
+}
+
+h1, h2, h3 {
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: inline-block;
+  padding: 1vw 2vw;
+}
+
+table {
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+td, th {
+  padding: 1vw 2vw;
+  border: 0.3vw dashed var(--primary-color);
 }
