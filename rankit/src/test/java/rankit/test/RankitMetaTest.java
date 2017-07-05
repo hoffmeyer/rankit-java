@@ -27,7 +27,7 @@ public class RankitMetaTest {
 		engine.addPlayer("Ewe");
 		
 		List<Player> sortedPlayerlist = engine.getSortedPlayerlist();
-		List<Match> matchlist = engine.getSortedMatchList();
+		List<Match> matchlist = engine.getSortedMatchList(100);
 		
 //		System.out.println(sortedPlayerlist);
 //		System.out.println(matchlist);

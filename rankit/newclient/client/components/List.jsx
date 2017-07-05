@@ -19,8 +19,6 @@ const toListElement = (player: Player) => (
 )
 
 export const List = ({list}: State) => (
-  <div>
-    <h1>The List</h1>
     <table>
       <thead>
         <tr>
@@ -33,5 +31,4 @@ export const List = ({list}: State) => (
         {list.map(toListElement)}
       </tbody>
     </table>
-  </div>
 )

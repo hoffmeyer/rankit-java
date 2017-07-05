@@ -42,7 +42,7 @@ export const fetchList = (dispatch: Dispatch) => {
 
 export const fetchMatches = (dispatch: Dispatch) => {
   dispatch(requestMatches);
-  fetch('http://localhost:8338/api/match')
+  fetch('http://localhost:8338/api/match/100')
   .then( response => response.json())
   .then( json => dispatch( receiveMatches(json)));
 }

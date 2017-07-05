@@ -1,30 +1,40 @@
 // @flow
-import React from 'react'
+import React, {Component} from 'react';
 import { HashRouter as Router, Route, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import type { State } from '../types'
-import ListLoader from '../containers/ListLoader.jsx'
-import MatchesLoader from '../containers/MatchesLoader.jsx'
+import type { State, List, Match } from '../types'
+import ListPage from '../pages/ListPage.jsx'
+import MatchesPage from '../pages/MatchesPage.jsx'
+import {fetchList, fetchMatches} from '../actions';
 
-const NewPlayer = () => (
-  <h1>New Player</h1>
+const NewMatch = () => (
+  <div>
+    <Link to="/">Back</Link>
+    <h1>New Match</h1>
+  </div>
 )
 
-const App = (state: State) => (
-   <div style={{textAlign: 'center'}}>
+class App extends Component {
+
+
+  componentDidMount() {
+    const {dispatch} = this.props
+    dispatch( fetchMatches )
+    dispatch( fetchList )
+  }
+
+  render() {
+   return <div style={{textAlign: 'center'}}>
      <Router>
        <div>
-         <ul>
-           <li><Link to="/">List</Link></li>
-           <li><Link to="/matches">Matches</Link></li>
-           <li><Link to="/addPlayer">New Player</Link></li>
-         </ul>
-         <Route exact path='/' component={ListLoader}/>
-         <Route path='/matches' component={MatchesLoader}/>
-         <Route path='/addPlayer' component={NewPlayer}/>
+         <Route exact path='/' component={ListPage}/>
+         <Route path='/matches' component={MatchesPage}/>
+         <Route path='/newMatch' component={NewMatch}/>
        </div>
      </Router>
     </div>
-  )
+  }
+
+}
 
 export default connect()(App);

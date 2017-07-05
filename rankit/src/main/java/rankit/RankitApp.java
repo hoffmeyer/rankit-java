@@ -63,8 +63,9 @@ public class RankitApp extends Application {
 
 		});
 		
-		GET("/api/match", (routeContext) -> {
-			List<Match> latestMatches = engine.getSortedMatchList();
+		GET("/api/match/{num}", (routeContext) -> {
+			int num = routeContext.getParameter("num").toInt(100);
+			List<Match> latestMatches = engine.getSortedMatchList(num);
 			routeContext.json().send(latestMatches);
 		});
 

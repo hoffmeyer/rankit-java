@@ -66,9 +66,9 @@ public class RankitEngine {
 			return playerList;
 		}
 		
-		public List<Match> getSortedMatchList() {
+		public List<Match> getSortedMatchList( int numElements ) {
 			sortMatchesIfNeeded();
-			List<Match> latestMatches = matches.subList( 0, Math.min(matches.size(), 100) );
+			List<Match> latestMatches = matches.subList( 0, Math.min(matches.size(), numElements) );
 			return latestMatches;			
 		}
 		
