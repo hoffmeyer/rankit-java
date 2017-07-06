@@ -18,7 +18,7 @@ class ListLoader extends Component{
               <Link to="/newMatch">New Match</Link>
               <h1>Recent matches</h1>
               <MatchList list={this.props.list} matches={this.props.matches} numMatches='3'/>
-              <Link to="/matches">more</Link>
+              <Link to="/matches" className='right' >more</Link>
             </div>
             <div>
               <h1>The list</h1>

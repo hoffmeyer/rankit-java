@@ -24,7 +24,7 @@ function toListElement(match: Match, list: List)  {
               {new Date(match.time).toLocaleDateString("da-DK", options)}
             </td>
             <td className="text-center">
-              {playersToString(match.team1.players)} vs {playersToString(match.team2.players)}
+              {playersToString(match.team1.players)}<br/>vs<br/>{playersToString(match.team2.players)}
             </td>
             <td className="text-center">
               {match.team1.score + ' - ' + match.team2.score}

@@ -12,7 +12,7 @@ class MatchesLoader extends Component{
 
   render() {
     return <div>
-            <Link to="/">Back</Link>
+            <Link to="/" className='left'>Back</Link>
             <h1>Matches</h1>
             <MatchList list={this.props.list} matches={this.props.matches} numMatches='100'/>
           </div>;

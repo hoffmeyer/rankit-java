@@ -34,3 +34,15 @@ td, th {
   padding: 1vw 2vw;
   border: 0.3vw dashed var(--primary-color);
 }
+
+a {
+  padding: 1vw;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}

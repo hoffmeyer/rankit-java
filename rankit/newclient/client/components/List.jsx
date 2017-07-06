@@ -10,8 +10,9 @@ const winsLossesToString = (wins: number, losses: number) => {
   } else return ''
 }
 
-const toListElement = (player: Player) => (
+const toListElement = (player: Player, index: number) => (
   <tr key={player.id}>
+    <td>{index + 1}</td>
     <td>{player.name}</td>
     <td>{player.points}</td>
     <td>{winsLossesToString(player.currentWinsInRow, player.currentLossesInRow)}</td>
@@ -22,6 +23,7 @@ export const List = ({list}: State) => (
     <table>
       <thead>
         <tr>
+          <td>No</td>
           <td>Player</td>
           <td>Score</td>
           <td>Streak</td>
