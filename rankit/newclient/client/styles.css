@@ -1,14 +1,20 @@
 :root {
   --primary-color: rgb(105, 219, 141);
   --background-primary: rgb( 30, 30, 30);
+  --max-width: 1200px;
+  --font-normal: 22px;
+  --padding-normal: 10px 20px;
+  --border-thickness: 3px;
 }
+
 
 body, a {
   font-family: monospace;
-  font-size: 2vw;
-  background-color: black;
+  font-size: var(--font-normal);
   background-color: var(--background-primary);
   color: var(--primary-color);
+  max-width: var(--max-width);
+  margin: 0 auto;
 }
 
 h1, h2, h3 {
@@ -23,21 +29,24 @@ ul {
 
 li {
   display: inline-block;
-  padding: 1vw 2vw;
+  padding: var(--padding-normal);
 }
 
 table {
-  margin: 0 auto;
+  width: 100%;
+  margin: 1em 0 2em 0;
   border-collapse: collapse;
 }
 
 td, th {
-  padding: 1vw 2vw;
-  border: 0.3vw dashed var(--primary-color);
+  padding: var(--padding-normal);
+  border: 1px dashed var(--primary-color);
+  border-width: var(--border-thickness);
 }
 
 a {
-  padding: 1vw;
+  display: block;
+  padding: 0;
 }
 
 .left {
@@ -51,9 +60,31 @@ a {
 button {
   background-color: inherit;
   color: inherit;
-  padding: 1vw;
-  font-size: 2vw;
+  padding: var(--padding-normal);
+  font-size: var(--font-normal);
   font-family: inherit;
-  border: 0.3vw solid var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-width: var(--border-thickness);
   cursor: pointer;
+}
+
+button.primary {
+  background-color: var(--primary-color);
+  color: var(--background-primary);
+}
+
+@media (max-width: 600px) {
+  :root{
+    --font-normal: 18px;
+    --padding-normal: 10px 20px;
+    --border-thickness: 2px;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root{
+    --font-normal: 28px;
+    --padding-normal: 10px 20px;
+    --border-thickness: 5px;
+  }
 }

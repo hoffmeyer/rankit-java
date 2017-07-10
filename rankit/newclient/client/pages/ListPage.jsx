@@ -37,11 +37,11 @@ class ListLoader extends Component{
     }
     return <div>
             <div>
-              <Modal onClose={onClose} isOpen={this.state.isOpen}><p>This is modal</p></Modal>
-              <button onClick={addMatch}>Add Match</button>
               <h1>Recent matches</h1>
+              <Modal onClose={onClose} isOpen={this.state.isOpen}><p>This is modal</p></Modal>
               <MatchList list={this.props.list} matches={this.props.matches} numMatches='3'/>
               <Link to="/matches" className='right' >more</Link>
+              <button className='primary' onClick={addMatch}>Add Match</button>
             </div>
             <div>
               <h1>The list</h1>
