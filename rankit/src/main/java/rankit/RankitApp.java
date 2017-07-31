@@ -47,6 +47,18 @@ public class RankitApp extends Application {
 		GET("/api/list", (routeContext) -> {
 			routeContext.json().send(engine.getSortedPlayerlist());
 		});
+		
+		GET("/api/player/{id}", (routeContext) -> {
+			int id = routeContext.getParameter("id").toInt(100);
+			Player player = engine.getPlayer(id);
+			routeContext.json().send(player);
+		});
+
+		GET("/api/player/{id}/latestMatches", (routeContext) -> {
+			int id = routeContext.getParameter("id").toInt(100);
+			List<Match> matches = engine.getLatestMatches(id);
+			routeContext.json().send(matches);
+		});
 
 		POST("/api/player", (routeContext) -> {
 

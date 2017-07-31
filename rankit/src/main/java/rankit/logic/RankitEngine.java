@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import rankit.RankitApp;
 import rankit.model.Match;
 import rankit.model.Player;
+import rankit.model.Team;
 import rankit.model.event.CreatePlayerEvent;
 import rankit.model.event.Event;
 import rankit.model.event.RegisterMatchEvent;
@@ -110,8 +112,33 @@ public class RankitEngine {
 			matches.sort( (o1, o2) -> o2.time.compareTo(o1.time));		
 			matches_need_sorting = false;
 		}
-		
 
+		public Player getPlayer(int id) {
+			return players.get(id);
+		}
+
+		public List<Match> getLatestMatches(int id) {
+			int numWanted = 3;
+			ArrayList<Match> latestMatches = (new ArrayList<>());
+			for( int i = matches.size(); i > 0; i--) {
+				Match match = matches.get(i-1);
+				if(matchHasPlayer(match, id)) {
+					latestMatches.add(match);
+				}
+				if(latestMatches.size() >= numWanted) {
+					break;
+				}
+			}
+			return latestMatches;
+		}
+
+		private boolean matchHasPlayer(Match match, int id) {
+			return teamHasPlayer(match.team1, id) || teamHasPlayer(match.team2, id);
+		}
+
+		private boolean teamHasPlayer(Team team, int id) {
+			return IntStream.of(team.players).anyMatch(x -> x == id);
+		}
 	}
 	
 
