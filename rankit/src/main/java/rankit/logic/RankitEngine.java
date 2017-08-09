@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.slf4j.Logger;
@@ -24,28 +25,22 @@ public class RankitEngine {
 		private List<Match> matches = new ArrayList<>();
 		private boolean matches_need_sorting = false;
 
-		public void applyEvent(Event event) {
-			ArrayList<Event> eventList = new ArrayList<Event>();
-			eventList.add(event);
-			applyEvents(eventList);		
-		}
-
 		public void applyEvents(List<Event> list) {
-			for (Event event : list) {
-				if( !event.isCancelled() ){
-					if (event instanceof CreatePlayerEvent) {
-						CreatePlayerEvent playerEvent = ((CreatePlayerEvent) event);
-						addNewPlayer(new Player(playerEvent.getPlayerName(), playerEvent.getPlayerId()));
-					} else if (event instanceof RegisterMatchEvent) {
-						Match match = ((RegisterMatchEvent) event).getMatch();
-						if( match.time == null ) {
-							match.time = event.getEventTime();
-						}
-						registerMatch(match);
-					} else {
-						logger.error("Unhandled event i applyEvents " + event.getClass().getName());
-					}
+			list.stream().filter(x -> !x.isCancelled()).forEach( x -> applyEvent(x));
+		}
+		
+		public void applyEvent(Event event) {
+			if (event instanceof CreatePlayerEvent) {
+				CreatePlayerEvent playerEvent = ((CreatePlayerEvent) event);
+				addNewPlayer(new Player(playerEvent.getPlayerName(), playerEvent.getPlayerId()));
+			} else if (event instanceof RegisterMatchEvent) {
+				Match match = ((RegisterMatchEvent) event).getMatch();
+				if( match.time == null ) {
+					match.time = event.getEventTime();
 				}
+				registerMatch(match);
+			} else {
+				logger.error("Unhandled event i applyEvents " + event.getClass().getName());
 			}
 		}
 		
@@ -117,19 +112,11 @@ public class RankitEngine {
 			return players.get(id);
 		}
 
-		public List<Match> getLatestMatches(int id) {
-			int numWanted = 3;
-			ArrayList<Match> latestMatches = (new ArrayList<>());
-			for( int i = matches.size(); i > 0; i--) {
-				Match match = matches.get(i-1);
-				if(matchHasPlayer(match, id)) {
-					latestMatches.add(match);
-				}
-				if(latestMatches.size() >= numWanted) {
-					break;
-				}
-			}
-			return latestMatches;
+		public List<Match> getPlayersLatestMatches(int id) {
+			return matches.stream()
+					.filter(x -> matchHasPlayer(x, id))
+					.limit(3)
+					.collect(Collectors.toList());
 		}
 
 		private boolean matchHasPlayer(Match match, int id) {

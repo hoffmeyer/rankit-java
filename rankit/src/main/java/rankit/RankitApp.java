@@ -56,7 +56,7 @@ public class RankitApp extends Application {
 
 		GET("/api/player/{id}/latestMatches", (routeContext) -> {
 			int id = routeContext.getParameter("id").toInt(100);
-			List<Match> matches = engine.getLatestMatches(id);
+			List<Match> matches = engine.getPlayersLatestMatches(id);
 			routeContext.json().send(matches);
 		});
 
