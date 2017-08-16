@@ -5,11 +5,8 @@ import { connect } from 'react-redux'
 import type { State, List, Match } from '../types'
 import ListPage from '../pages/ListPage.jsx'
 import MatchesPage from '../pages/MatchesPage.jsx'
-import {fetchList, fetchMatches} from '../actions';
-
-const ChoosePlayer = () => (
-  <h1>Choose player</h1>
-)
+import ChoosePlayerPage from '../pages/ChoosePlayerPage.jsx';
+import {fetchPlayer, fetchList, fetchMatches} from '../actions';
 
 const PlayerStats = () => (
   <h1>Player stats</h1>
@@ -26,15 +23,15 @@ class App extends Component {
 
   componentDidMount() {
     const {dispatch} = this.props
-    dispatch( fetchMatches )
-    dispatch( fetchList )
+    dispatch(fetchMatches);
+    dispatch(fetchList);
   }
 
   render() {
    return <div style={{textAlign: 'center'}}>
      <Router>
        <div>
-         <Route exact path='/choosePlayer' component={ChoosePlayer}/>
+         <Route exact path='/choosePlayer' component={ChoosePlayerPage}/>
          <CookieRoute exact path='/' component={ListPage}/>
          <CookieRoute path='/matches' component={MatchesPage}/>
          <CookieRoute path='/newMatch' component={NewMatch}/>
@@ -46,7 +43,7 @@ class App extends Component {
 
 const CookieRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={props => (
-    true ? (
+    localStorage.getItem('ranky_player_id') != null ? (
       <Component {...props}/>
     ) : (
       <Redirect to={{

@@ -22,7 +22,6 @@ class ListLoader extends Component{
     this.state = {isOpen: false};
   }
 
-
   render() {
     const addMatch = () => {
       this.setState({

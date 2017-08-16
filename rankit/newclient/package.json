@@ -31,11 +31,11 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.28.0",
-    "flow-bin": "^0.46.0",
-    "react-redux": "^5.0.4",
+    "flow-bin": "^0.52.0",
+    "react-redux": "^5.0.6",
     "redux-devtools": "^3.4.0",
     "style-loader": "^0.16.1",
     "webpack": "^2.4.1",
-    "webpack-dev-server": "^2.4.2"
+    "webpack-dev-server": "^2.7.1"
   }
 }
